@@ -4,9 +4,23 @@ namespace App\Controller;
 use App\Controller\AppController;
 
 class PeopleController extends AppController {
+
+    public $paginate = [
+        'finder' => 'byAge',
+        'limit' => 5,
+        'contain' => ['Messages'],
+    ];
+
+    public function initialize() {
+        parent::initialize();
+        $this->loadComponent('Paginator');
+    }
+
     public function index() {
-        if ($this->request->is('post')) {
-            $find = $this->request->data['People']['find'];
+        // if ($this->request->is('post')) {
+            $data = $this->paginate($this->People);
+            $this->set('data', $data);
+            // $find = $this->request->data['People']['find'];
             // $arr = explode(',',$find);
             // $condition = ['conditions'=>['name like'=>$find]];
             // $condition = ['conditions'=>['age <=' => $find]];
@@ -34,17 +48,19 @@ class PeopleController extends AppController {
                 // ->order(['People.age' => 'asc'])
                 // ->order(['People.name' => 'asc'])
                 // ->limit(3)->page($find);
-            $data = $this->People->find('me', ['me' => $find]);
-        } else {
+            // $data = $this->People->find('me', ['me' => $find])
+            //     ->contain(['Messages']);
+        // } else {
             // $data = $this->People->find('all');
             // $data = $this->People->find('all',
             //     ['order' => ['People.age' => 'asc']]
             // $data = $this->People->find()
             //     ->order(['People.age' => 'asc'])
             //     ->order(['People.name' => 'asc']);
-            $data = $this->People->find('byAge');
-        }
-        $this->set('data', $data);
+        //     $data = $this->People->find('byAge')
+        //         ->contain(['Messages']);
+        // }
+        // $this->set('data', $data);
     }
 
     public function delete() {

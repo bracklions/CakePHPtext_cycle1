@@ -9,11 +9,12 @@ use Cake\Validation\Validator;
 class PeopleTable extends Table {
     public function initialize(array $config) {
         parent::initialize($config);
-
-        $this->setTable('people');
+        // $this->setTable('people');
         // $this->setDisplayField('name');
-        $this->setDisplayField('mail');
-        $this->setPrimaryKey('id');
+        // $this->setDisplayField('mail');
+        $this->setDisplayField('name');
+        // $this->setPrimaryKey('id');
+        $this->hasMany('Messages');
     }
 
     public function findMe(Query $query, array $options) {

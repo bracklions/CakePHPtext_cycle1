@@ -8,5 +8,5 @@ class Person extends Entity {
         'name' => true,
         'mail' => true,
         'age' => true
-    ]
+    ];
 }
